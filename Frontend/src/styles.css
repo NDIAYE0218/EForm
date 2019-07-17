@@ -1,4 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-color: aliceblue }
+
+.img{
+    width: 7.5%;
+}
+.titre{
+    width: 92.5%;
+    font-size: 140%;
+    text-align: center;
+}
+.toolbarmenue{
+    height: 5%;
+    background-color: white;
+}
+.men-item-ad{
+    width: 48%;
+    font-size: 150%;
+    background-color: #f95c63;
+    color: white;
+}

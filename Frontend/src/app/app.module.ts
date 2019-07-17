@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatProgressBarModule, MatGridListModule, MatOptionModule, MatSelectModule, MatIconModule, MatButtonModule, MatMenuModule, MatCardModule, MatTableModule, MatDividerModule, MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatAutocompleteModule, MatTabsModule } from '@angular/material';
 //importation des services
 import {FormulaireService} from './services/formulaire.service'
-import {DataFormulaireService} from './services/data-formulaire.service'
+import {DataFormulaireService} from './services/data-formulaire.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +20,12 @@ import {DataFormulaireService} from './services/data-formulaire.service'
     GererFormulaireComponent,
     GererDemandeComponent,
     NouvelDemandeComponent,
-    SuivreDemandeComponent,
+    SuivreDemandeComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     MatToolbarModule,
     MatFormFieldModule,
@@ -41,11 +46,6 @@ import {DataFormulaireService} from './services/data-formulaire.service'
     MatNativeDateModule,
     MatAutocompleteModule,
     MatTabsModule
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
   ],
   providers: [FormulaireService,DataFormulaireService],
   bootstrap: [AppComponent]
