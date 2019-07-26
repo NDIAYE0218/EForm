@@ -8,3 +8,498 @@
         </button>
     </div>
 </mat-toolbar>
+
+
+<!-- pannel d'ajout élément -->
+<div *ngIf="vu_creation" class="pannel_creation">
+    <div class="outil" #informationForm>
+        <form [formGroup]="InformationForm">
+            <mat-form-field class="mat_input_nouv">
+                <input matInput placeholder="Titre du formulaire" type="text" formControlName="Titre"
+                    [value]="formulaire.titre" required #titre_formulaire>
+            </mat-form-field>
+            <mat-form-field class="mat_input_nouv">
+                <input matInput placeholder="Titre du boutton de validation" type="text"
+                    [value]="formulaire.boutton.Nom" formControlName="TitreBouttont" value="Valider" #TitreBouttont>
+            </mat-form-field>
+            <div style="width: 100%">
+                <span class="list_elem" *ngFor="let list of Emailvalidation;let i= index">{{list}} &nbsp;<mat-icon
+                        class="delete_elem" (click)="supprime_admin(i);email_adm.value=''">clear</mat-icon>
+                </span>
+            </div>
+            <mat-form-field class="mat_input_nouv">
+                <input matInput placeholder="Couleur du boutton" type="color" [value]="formulaire.boutton.Couleur"
+                    formControlName="TitreBouttont" #couleurBouttont>
+            </mat-form-field>
+            <form [formGroup]="AjoutEmail" style="display: inline-block;width: 48%;margin-left: 2%">
+                <mat-form-field style="width: 76.5%;">
+                    <input matInput placeholder="email administrateur (s)" type="email" formControlName="Email"
+                        #email_adm>
+                </mat-form-field>
+                <button mat-raised-button color="primary" [disabled]="AjoutEmail.pristine || AjoutEmail.invalid"
+                    style="color: white;font-size: 120%;" (click)="addAdmin(email_adm.value);email_adm.value=''">
+                    <mat-icon>add_circle</mat-icon>
+                </button>
+            </form>
+            <span class="delete_elem" *ngIf="Emailvalidation.length==0">Il faut au minimum un administrateur du
+                formulaire, et ajout un champs au formulaire</span>
+            <button mat-raised-button *ngIf="!action"
+                (click)="Publie_form(titre_formulaire.value,TitreBouttont.value,couleurBouttont.value,0)"
+                color="primary" [disabled]="Emailvalidation.length==0 || FormData.length==0"
+                style="color: white;font-size: 120%;width: 100%">
+                <mat-icon>send</mat-icon> Enregistrer les modifications
+            </button>
+            <button mat-raised-button *ngIf="action"
+                (click)="Publie_form(titre_formulaire.value,TitreBouttont.value,couleurBouttont.value)" color="primary"
+                [disabled]="InformationForm.pristine || InformationForm.invalid || Emailvalidation.length==0 || FormData.length==0"
+                style="color: white;font-size: 120%;width: 100%">
+                <mat-icon>send</mat-icon> Publier le formulaire
+            </button>
+        </form>
+    </div>
+    <div class="outil" #modelisationelement>
+        <mat-accordion>
+            <mat-expansion-panel hideToggle #titr>
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="width: 95%;margin: auto">
+                        Titre de section
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <mat-icon>list_alt</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <form [formGroup]="AjoutForm">
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput placeholder="Titre de la section" type="text" formControlName="Nom" required
+                            #titre>
+                    </mat-form-field>
+                    <mat-form-field class="mat_input_nouv">
+                        <mat-select value="Moyen" placeholder="Taille du champs" #taille_ch>
+                            <mat-option value="Grand">Grand</mat-option>
+                            <mat-option value="Moyen">Moyen</mat-option>
+                            <mat-option value="Petit">Petit</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-action-row>
+                        <button mat-button color="primary"
+                            (click)="NouveauChamp('titre',titre.value,0,0,taille_ch.value,5)"
+                            [disabled]="AjoutForm.pristine || AjoutForm.invalid">Ajouter</button>
+                    </mat-action-row>
+                </form>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+    <div class="outil" #simpleelement>
+        <mat-accordion>
+            <mat-expansion-panel hideToggle #text>
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="width: 95%;margin: auto">
+                        Champs de type texte
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        &nbsp; &nbsp;&nbsp;&nbsp;<mat-icon>text_format</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <form [formGroup]="AjoutForm">
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput placeholder="Nom du champs" type="text" formControlName="Nom" required #nom_t>
+                    </mat-form-field>
+
+                    <mat-checkbox class="mat_input_nouv" style="margin-left: 15%" (click)="changeoblig()" #obligg>Champs
+                        obligatoire
+                    </mat-checkbox>
+
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput type="number" min="0" value="0" placeholder="Nbr carractère mini" #min_t>
+                    </mat-form-field>
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput type="number" min="1" placeholder="Nbr carractère maxi" #max_t>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%">
+                        <input matInput type="text" placeholder="Valeur par defaut" #def_t>
+                    </mat-form-field>
+                    <mat-action-row>
+                        <button mat-button color="primary"
+                            (click)="NouveauChamp('text',nom_t.value,min_t.value,max_t.value,def_t.value,0);min_t.value=0;max_t.value='';def_t.value='';obligg.checked=false"
+                            [disabled]="AjoutForm.pristine || AjoutForm.invalid">Ajouter</button>
+                    </mat-action-row>
+                </form>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel hideToggle #numb>
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="width: 95%;margin: auto">
+                        Champs de type nombre
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <mat-icon>filter_9</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <form [formGroup]="AjoutForm">
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput placeholder="Nom du champs" type="text" formControlName="Nom" required #nom_n>
+                    </mat-form-field>
+
+                    <mat-checkbox class="mat_input_nouv" style="margin-left: 15%" (click)="changeoblig()" #obligg_n>
+                        Champs
+                        obligatoire
+                    </mat-checkbox>
+
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput type="number" placeholder="Valeur mini" #min_n>
+                    </mat-form-field>
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput type="number" min="1" placeholder="Valeur maxi" #max_n>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%">
+                        <input matInput type="number" placeholder="Valeur par defaut" #def_n>
+                    </mat-form-field>
+                    <mat-action-row>
+                        <button mat-button color="primary"
+                            (click)="NouveauChamp('number',nom_n.value,min_n.value,max_n.value,def_n.value,0);min_n.value=0;max_n.value='';def_n.value='';obligg_n.checked=false"
+                            [disabled]="AjoutForm.pristine || AjoutForm.invalid">Ajouter</button>
+                    </mat-action-row>
+                </form>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel hideToggle #email>
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="width: 95%;margin: auto">
+                        Champs de type e-mail
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        &nbsp;
+                        <mat-icon>alternate_email</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <form [formGroup]="AjoutForm">
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput placeholder="Nom du champs" type="text" formControlName="Nom" required #nom_e>
+                    </mat-form-field>
+
+                    <mat-checkbox class="mat_input_nouv" style="margin-left: 15%" (click)="changeoblig()">Champs
+                        obligatoire
+                    </mat-checkbox>
+
+                    <mat-form-field style="width: 100%">
+                        <input matInput type="text" placeholder="domaine obligatoire" #def_e>
+                    </mat-form-field>
+                    <mat-checkbox style="width: 65%" (click)="changesend()" #obligg_e>Envoie d'email après validation du
+                        formulaire
+                    </mat-checkbox>
+                    <mat-form-field *ngIf="send" style="width: 30%;margin-left: 5%">
+                        <textarea matInput placeholder="Message a envoyer"
+                            (input)="changemessage($event.target.value)"></textarea>
+                    </mat-form-field>
+                    <mat-action-row>
+                        <button mat-button color="primary"
+                            (click)="NouveauChamp('email',nom_e.value,0,100,def_e.value,0);def_e.value='';obligg_e.checked=false"
+                            [disabled]="AjoutForm.pristine || AjoutForm.invalid">Ajouter</button>
+                    </mat-action-row>
+                </form>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel hideToggle #textera>
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="width: 95%;margin: auto">
+                        Champs de type commentaire
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <mat-icon>comment</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <form [formGroup]="AjoutForm">
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput placeholder="Nom du champs" type="text" formControlName="Nom" required #nom_tx>
+                    </mat-form-field>
+
+                    <mat-checkbox class="mat_input_nouv" style="margin-left: 15%" (click)="changeoblig()" #obligg_tx>
+                        Champs
+                        obligatoire
+                    </mat-checkbox>
+
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput type="number" min="2" value="4" placeholder="Nbr de ligne" #min_tx>
+                    </mat-form-field>
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput type="number" min="1" placeholder="Nbr carractère maxi" #max_tx>
+                    </mat-form-field>
+                    <mat-form-field style="width: 100%">
+                        <input matInput type="text" placeholder="Valeur par defaut" #def_tx>
+                    </mat-form-field>
+                    <mat-action-row>
+                        <button mat-button color="primary"
+                            (click)="NouveauChamp('textarea',nom_tx.value,min_tx.value,max_tx.value,def_tx.value,2);min_tx.value=0;max_tx.value='';def_tx.value='';obligg_tx.checked=false"
+                            [disabled]="AjoutForm.pristine || AjoutForm.invalid">Ajouter</button>
+                    </mat-action-row>
+                </form>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel hideToggle #dte>
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="width: 95%;margin: auto">
+                        Champs de type Date
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <mat-icon>date_range</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <form [formGroup]="AjoutForm">
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput placeholder="Nom du champs" type="text" formControlName="Nom" required #nom_dte>
+                    </mat-form-field>
+
+                    <mat-checkbox class="mat_input_nouv" style="margin-left: 15%" (click)="changeoblig()" #obligg_dte>
+                        Champs
+                        obligatoire
+                    </mat-checkbox>
+                    <mat-action-row>
+                        <button mat-button color="primary"
+                            (click)="NouveauChamp('date',nom_chx.value,0,0,'',0);obligg_dte.checked=false"
+                            [disabled]="AjoutForm.pristine || AjoutForm.invalid">Ajouter</button>
+                    </mat-action-row>
+                </form>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel hideToggle #chx>
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="width: 95%;margin: auto">
+                        Champs de type CheckBox
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <mat-icon>check_box</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <form [formGroup]="AjoutForm">
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput placeholder="Nom du champs" type="text" formControlName="Nom" required #nom_chx>
+                    </mat-form-field>
+
+                    <mat-checkbox class="mat_input_nouv" style="margin-left: 15%" (click)="changeoblig()" #obligg_chx>
+                        Champs
+                        obligatoire
+                    </mat-checkbox>
+
+                    <mat-checkbox style="width: 100%" (click)="changdefchx()" #def_chx>Selectionner le champs par defaut
+                    </mat-checkbox>
+                    <mat-action-row>
+                        <button mat-button color="primary"
+                            (click)="NouveauChamp('checkbox',nom_chx.value,0,0,'',1);obligg_chx.checked=false;def_chx.checked=false"
+                            [disabled]="AjoutForm.pristine || AjoutForm.invalid">Ajouter</button>
+                    </mat-action-row>
+                </form>
+            </mat-expansion-panel>
+
+        </mat-accordion>
+    </div>
+
+    <div class="outil" #complexeelement>
+        <mat-accordion>
+            <mat-expansion-panel hideToggle #rb>
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="width: 95%;margin: auto">
+                        Radio boutton
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <mat-icon>radio_button_checked</mat-icon>
+                        <mat-icon>radio_button_unchecked</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <form [formGroup]="AjoutForm">
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput placeholder="Nom du champs" type="text" formControlName="Nom" required #nom_rb>
+                    </mat-form-field>
+
+                    <mat-checkbox class="mat_input_nouv" style="margin-left: 15%" (click)="changeoblig()" #obligg_rd>
+                        Champs
+                        obligatoire
+                    </mat-checkbox><br>
+                    <span class="delete_elem" *ngIf="liste.length==0">Ajouter au moins deux options</span>
+                    <div style="width: 100%">
+                        <span class="list_elem" *ngFor="let list of liste;let i= index">{{list}} &nbsp;<mat-icon
+                                class="delete_elem" (click)="supprimer_elem(i);def_rb.value=''">clear</mat-icon> </span>
+                    </div>
+                    <br>
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput type="text" (input)="changedis($event.target.value)"
+                            placeholder="Nouvelle une valeur" #valeur_rb>
+                    </mat-form-field>
+
+                    <button mat-button color="primary" class="mat_input_nouv"
+                        (click)="Nouvellist(valeur_rb.value);valeur_rb.value=''" [disabled]="dis">Ajouter aux
+                        options</button>
+                    <mat-form-field style="width: 100%">
+                        <input matInput type="text" placeholder="Valeur par defaut" [matAutocomplete]="auto" #def_rb>
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let list of liste" [value]="list">
+                                {{ list }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-action-row>
+                        <button mat-button color="primary"
+                            (click)="NouveauChamp('radio',nom_rb.value,0,0,def_rb.value,3);def_tx.value='';obligg_rd.checked=false"
+                            [disabled]="(AjoutForm.pristine || AjoutForm.invalid) || valid_list">Ajouter</button>
+                    </mat-action-row>
+                </form>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle #lst>
+                <mat-expansion-panel-header>
+                    <mat-panel-title style="width: 95%;margin: auto">
+                        Liste
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        <mat-icon>list</mat-icon>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <form [formGroup]="AjoutForm">
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput placeholder="Nom du champs" type="text" formControlName="Nom" required #nom_lst>
+                    </mat-form-field>
+
+                    <mat-checkbox class="mat_input_nouv" style="margin-left: 15%" (click)="changeoblig()" #obligg_lst>
+                        Champs
+                        obligatoire
+                    </mat-checkbox><br>
+                    <span class="delete_elem" *ngIf="liste.length==0">Ajouter au moins deux options</span>
+                    <div style="width: 100%">
+                        <span class="list_elem" *ngFor="let list of liste;let i= index">{{list}} &nbsp;<mat-icon
+                                class="delete_elem" (click)="supprimer_elem(i);def_lst.value=''">clear</mat-icon>
+                        </span>
+                    </div>
+                    <br>
+                    <mat-form-field class="mat_input_nouv">
+                        <input matInput type="text" (input)="changedis($event.target.value)"
+                            placeholder="Nouvelle une valeur" #valeur_lst>
+                    </mat-form-field>
+
+                    <button mat-button color="primary" class="mat_input_nouv"
+                        (click)="Nouvellist(valeur_lst.value);valeur_lst.value=''" [disabled]="dis">Ajouter aux
+                        options</button>
+                    <mat-form-field style="width: 100%">
+                        <input matInput type="text" placeholder="Valeur par defaut" [matAutocomplete]="auto" #def_lst>
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let list of liste" [value]="list">
+                                {{ list }}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                    <mat-action-row>
+                        <button mat-button color="primary"
+                            (click)="NouveauChamp('select',nom_lst.value,0,0,def_lst.value,4);def_lst.value='';obligg_lst.checked=false"
+                            [disabled]="(AjoutForm.pristine || AjoutForm.invalid) || valid_list">Ajouter</button>
+                    </mat-action-row>
+                </form>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+
+</div>
+<!--Presentation du formulaire -->
+<div *ngIf="vu_creation" class="affiche_form">
+    <span *ngFor="let data_frm of FormData; let i=index">
+        <!--si titre-->
+        <h2 class="cadrant" *ngIf="data_frm.complexite==5 && data_frm.defaut=='Grand'">{{data_frm.nomChamp}} <mat-icon
+                class="delete_elem" (click)="supprimer_champ(i)">clear</mat-icon>
+        </h2>
+        <h4 class="cadrant" *ngIf="data_frm.complexite==5 && data_frm.defaut=='Moyen'">{{data_frm.nomChamp}} <mat-icon
+                class="delete_elem" (click)="supprimer_champ(i)">clear</mat-icon>
+        </h4>
+        <div class="input_vue_form" *ngIf="data_frm.complexite==5 && data_frm.defaut=='Petit'">{{data_frm.nomChamp}}
+            <mat-icon class="delete_elem" (click)="supprimer_champ(i)">clear</mat-icon>
+        </div>
+        <!--si les type texte nombre et email date-->
+        <span *ngIf="data_frm.complexite==0">
+            <mat-form-field class="input_vue_form">
+                <input matInput [placeholder]="data_frm.nomChamp" [type]="data_frm.type" [value]="data_frm.defaut"
+                    [min]="data_frm.mini" [max]="data_frm.maxi" [required]="data_frm.oblig">
+            </mat-form-field>
+            <mat-icon class="delete_elem" (click)="supprimer_champ(i)">clear</mat-icon>
+        </span>
+
+        <!--si les type checkbox-->
+        <span *ngIf="data_frm.complexite==1">
+            <div class="input_vue_form" style="display: inline-block;">
+                <mat-checkbox [required]="data_frm.oblig" [checked]="data_frm.defaut">
+                    {{data_frm.nomChamp}}
+                </mat-checkbox>
+            </div>
+            <mat-icon class="delete_elem" (click)="supprimer_champ(i)">clear</mat-icon>
+        </span>
+        <!--si les type texterea-->
+        <span *ngIf="data_frm.complexite==2">
+            <mat-form-field class="input_vue_form">
+                <textarea matInput [placeholder]="data_frm.nomChamp" [rows]="data_frm.mini"
+                    [required]="data_frm.oblig"></textarea>
+            </mat-form-field>
+            <mat-icon class="delete_elem" (click)="supprimer_champ(i)">clear</mat-icon>
+        </span>
+        <!--si les type radio boutton-->
+        <span *ngIf="data_frm.complexite==3">
+            <div class="input_vue_form" style="display: inline-block;">
+                <h5>{{data_frm.nomChamp}}</h5>
+                <mat-radio-group [required]="data_frm.oblig">
+                    <span *ngFor="let list of data_frm.list; let j=index">
+                        <mat-radio-button [value]="list" *ngIf="list==data_frm.defaut" checked>{{list}}
+                        </mat-radio-button>
+                        <mat-radio-button [value]="list" *ngIf="list!=data_frm.defaut">{{list}}</mat-radio-button>
+                        &nbsp;&nbsp;
+                    </span>
+                </mat-radio-group>
+            </div>
+            <mat-icon class="delete_elem" (click)="supprimer_champ(i)">clear</mat-icon>
+        </span>
+        <!--si les type liste select-->
+        <span *ngIf="data_frm.complexite==4">
+            <mat-form-field class="input_vue_form">
+                <mat-select [(value)]="data_frm.defaut" [placeholder]="data_frm.nomChamp" [required]="data_frm.oblig">
+                    <mat-option *ngFor="let list of data_frm.list; let j=index" [value]="list">{{list}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-icon class="delete_elem" (click)="supprimer_champ(i)">clear</mat-icon>
+        </span>
+    </span>
+</div>
+
+<div *ngIf="!vu_creation" #vu_succes>
+
+    <mat-card class="success_mess">
+        Le formulaire <i><b>{{titre_formulaire}}</b></i> a bien été <span *ngIf="action">publié</span> <span
+            *ngIf="!action">modifié</span>.<br>
+        il est accéssible au publique via les liens ci-dessous<br>
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 10%">Lien nouvelle demande</td>
+                <td style="width: 60%"><a [href]="Link+'Demande/'+uri">{{Link+"Demande/"+uri.substring(0, 10)}}...</a>
+                    <input type="text" [value]="Link+'Demande/'+uri" style="width: 0%;background-color: #4a488d"
+                        #lien_partag></td>
+                <td style="width: 26%">
+                    <mat-icon style="cursor: pointer;" (click)="copier(lien_partag)">file_copy</mat-icon>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 14%">Lien suivis demande</td>
+                <td style="width: 60%"><a
+                        [href]="Link+'Suivre/'+uri">{{Link+"Suivre/"+uri.substring(0, 10)}}...</a>
+                    <input type="text" [value]="Link+'Suivre/'+uri" style="width: 0%;background-color: #4a488d"
+                        #lien_partagee></td>
+                <td style="width: 26%">
+                    <mat-icon style="cursor: pointer;" (click)="copier(lien_partagee)">file_copy</mat-icon>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 14%">Lien administration</td>
+                <td style="width: 60%"><a
+                        [href]="Link+'Administration/'+uri">{{Link+"Administration/"+uri.substring(0, 10)}}...</a>
+                    <input type="text" [value]="Link+'Administration/'+uri" style="width: 0%;background-color: #4a488d"
+                        #lien_partage></td>
+                <td style="width: 26%">
+                    <mat-icon style="cursor: pointer;" (click)="copier(lien_partage)">file_copy</mat-icon>
+                </td>
+            </tr>
+        </table>
+    </mat-card>
+</div>

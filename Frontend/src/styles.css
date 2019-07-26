@@ -1,21 +1,177 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;background-color: aliceblue }
+html, body {
+    height: 100%;
+}
 
-.img{
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: aliceblue
+}
+
+.img {
     width: 7.5%;
 }
-.titre{
+
+.titre {
     width: 92.5%;
     font-size: 140%;
     text-align: center;
 }
-.toolbarmenue{
+
+.toolbarmenue {
     height: 5%;
     background-color: white;
 }
-.men-item-ad{
+
+.men-item-ad {
     width: 48%;
     font-size: 150%;
     background-color: #f95c63;
+    color: white;
+}
+
+.pannel_creation {
+    width: 30%;
+    margin-left: 3%;
+    margin-top: 2%;
+    display: inline-block;
+    position: absolute;
+}
+
+.outil {
+    margin-top: 2%;
+}
+
+.mat_input_nouv {
+    width: 50%
+}
+
+.list_elem {
+    width: 50%;
+    margin-right: 2%;
+    border-bottom: 6px solid #4a488d;
+    background-color: lightgrey;
+}
+
+.delete_elem {
+    cursor: pointer;
+    color: red;
+    font-size: 80%
+}
+
+.affiche_form {
+    width: 60%;
+    margin-left: 38%;
+    margin-top: 2%;
+    background-color: white;
+    height: 80%;
+    display: inline-block;
+    overflow: auto;
+    box-shadow: 10px 10px #4a488d;
+}
+
+.input_vue_form {
+    width: 42% !important;
+    margin-top: 2% !important;
+    margin-left: 2% !important;
+    margin-right: 2% !important;
+}
+
+.cadrant {
+    width: 96%;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    color: #4a488d;
+    text-align: center;
+}
+
+.success_mess {
+    text-align: center;
+    font-size: 120%;
+    background-color: #4a488d;
+    color: white;
+    width: 50%;
+    margin: auto;
+    margin-top: 5%;
+}
+
+.affiche_form_dem{
+    width: 90%;
+    margin:auto;
+    margin-top: 1%;
+    background-color: white;
+    height: 88%;
+    overflow: auto;
+    box-shadow: 10px 10px #4a488d;
+}
+.btn_valide{
+    width: 50%;
+    margin-left:25%;
+    margin-top: 2%;
+    font-size: 140%;
+    border-radius: 5px;
+    color: aliceblue;
+}
+.recherche{
+    width: 80%;
+    margin: auto;
+    margin-top: 3%;
+}
+.ic_con{
+    text-align: center;
+    font-size: 200%;
+    color: #4a488d;
+    margin-top: 3%;
+}
+.conn_form{
+    width: 50%;
+    margin: auto;
+    margin-top: 4%
+}
+.auth_field{
+    margin:auto;
+    width: 50%;
+    margin-left: 25%;
+    display: block
+}
+.ou{
+    width: 4.5%;
+    background-color: #4a488d;
+    border-radius: 25% / 50%;
+    color: white;
+    font-size: 140%;
+    margin-left: 0.5%;
+    margin-right: 0.5%
+}
+#customers {
+    border-collapse: collapse;
+    width: 98%;
+    margin: auto;
+    margin-top: 2%;
+}
+
+#customers td, #customers th {
+    border: 1px solid aliceblue;
+    padding: 8px;
+    text-align: center;
+    font-size: 110%
+}
+
+#customers tr:nth-child(even) {
+    background-color: white;
+}
+
+#customers tr:hover {
+    background-color: #4af88d;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4a488d;
+    font-size: 120%;
+    text-align: center;
     color: white;
 }

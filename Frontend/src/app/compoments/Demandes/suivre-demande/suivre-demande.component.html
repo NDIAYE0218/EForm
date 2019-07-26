@@ -1,1 +1,29 @@
-<p>suivre-demande works!</p>
+<div class="recherche">
+    <form [formGroup]="shearchform" class="shearch-form">
+        <mat-form-field style="width: 85%">
+            <input matInput placeholder="Entrer le numero de la demande (comptant 8 carractères)"
+                (input)="shearch_form($event.target.value)" max="8" type="text" required formControlName="Recherche"
+                #Recherche>
+        </mat-form-field>
+        <span style="color: red;width: 15%" *ngIf="!match()">
+            <mat-icon>clear</mat-icon>Aucune correspondance
+        </span> <span style="color: green;width: 30%" *ngIf="match()">
+            <mat-icon>check_circle</mat-icon>Données trouvées
+        </span>
+    </form>
+</div>
+<div *ngIf="match()" #vu_succes>
+    <mat-card class="success_mess">
+        Demande <i><b style="color: red">{{date_demande}}</b></i><br>
+        Etat: <i><b style="color: white" *ngIf="Etat==0">En attente</b>  <b style="color: red" *ngIf="Etat==1">Refusé</b> <b style="color: green" *ngIf="Etat==2">Validé</b> <b style="color: green" *ngIf="Etat==3">Validé, en cours de traitement</b><b style="color: green" *ngIf="Etat==4">Validé et traité</b></i><br>
+        <table style="width: 100%">
+            <tr>
+                <td style="width: 10%">Recapitulatif</td>
+                <td style="width: 60%">Demande <span *ngIf="Etat==0">effectué</span> <span *ngIf="Etat==1">réfusé</span> <span *ngIf="Etat==2">validé</span> <span *ngIf="Etat==3">en traitement depuis</span> <span *ngIf="Etat==3">traité depuis</span> le {{date_de_demande}}</td>
+                <td style="width: 26%">
+                    <span style="cursor: pointer;color: green;font-size: 120%" (click)="Pdf_downoald()" ><mat-icon >cloud_download</mat-icon> Télécharger en format pdf</span>
+                </td>
+            </tr>
+        </table>
+    </mat-card>
+</div>

@@ -2,8 +2,6 @@ var mongoose = require('mongoose');
 var Formulaire = mongoose.Schema({
     date_creation: String,
     titre: String,
-    prenom: String,
-    nomComplet: String,
     publie: String,
     Emailvalidation: String,
     boutton:
@@ -27,9 +25,12 @@ var Formulaire = mongoose.Schema({
             //     type: String,
             //     oblig: Number,
             //     defaut: String,
-            //     maxi: String,
-            //     mini: String,
+            //     maxi: Number,
+            //     mini: Number,
             //     send: Number,
+            //     send_texte:String,
+            //     list:[]
+            //     complexite: Number, si 0 input, si 1 checkbox, si 2 texterea, si 3 radiobouttont, si 4 select 
             // }
         ],
 })

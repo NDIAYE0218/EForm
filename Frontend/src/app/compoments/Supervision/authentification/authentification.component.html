@@ -1,0 +1,43 @@
+<mat-card class="conn_form">
+    <h2 class="ic_con">
+        <mat-icon class="ic_con">perm_identity</mat-icon>
+    </h2>
+    <div *ngIf="vue_con">
+        <form [formGroup]="ConForm">
+            <mat-form-field class="auth_field">
+                <input placeholder="Email *" type="email" matInput formControlName="Email" #Email>
+            </mat-form-field>
+            <mat-form-field class="auth_field">
+                <input placeholder="Mot de passe" type="password" matInput formControlName="MDP" #MDP>
+            </mat-form-field>
+            <button type="submit" (click)="Connexion(Email.value,MDP.value)" style="width: 50%; margin-left: 25%"
+                [disabled]="ConForm.pristine || ConForm.invalid" mat-raised-button color="primary">Connexion</button><br><br>
+            <button type="submit" (click)="oublie_act()" style="width: 50%; margin-left: 25%;background-color: #f95c63" mat-raised-button>Mot de passe oublié</button>
+        </form>
+    </div>
+    <div *ngIf="!vue_con">
+        <form [formGroup]="NewForm" class="Form_auth">
+            <mat-form-field class="auth_field">
+                <input placeholder="Email" type="email" matInput formControlName="Email" #Email required>
+            </mat-form-field>
+            <p style="width: 50%;margin-left: 25%;margin-right: 25%;  color: darkorange" *ngIf="!vue_alerte">Le mot de
+                passe doit contenir au minium 8 caractères composés d'au moins d'un caractère spécial et d'un chiffre.
+            </p>
+            <mat-form-field class="auth_field">
+                <input placeholder="Nouveau mot de passe" type="password" (input)="conformiteMDP($event.target.value)"
+                    matInput formControlName="MDP" #MDP required>
+            </mat-form-field>
+            <mat-icon style="color: red" *ngIf="!vue_alerte">clear</mat-icon>
+            <mat-icon style="color: green" *ngIf="vue_alerte">check_circle</mat-icon>
+            <mat-form-field class="auth_field">
+                <input placeholder="Confirmer votre mot de passe" type="password" matInput formControlName="Confirm"
+                    (input)="Conformite(MDP.value,$event.target.value)" #Confirm required>
+            </mat-form-field>
+            <mat-icon style="color: red" *ngIf="!vue_conform && vue_alerte">clear</mat-icon>
+            <mat-icon style="color: green" *ngIf="vue_conform && vue_alerte">check_circle</mat-icon>
+            <button type="submit" (click)="NouveauMDP(Email.value,MDP.value)" style="width: 50%; margin-left: 25%"
+                [disabled]="NewForm.pristine || NewForm.invalid || !(vue_conform && vue_alerte)" mat-raised-button
+                color="primary">Changer de mot de passe</button>
+        </form>
+    </div>
+</mat-card>

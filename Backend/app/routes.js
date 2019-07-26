@@ -11,4 +11,10 @@ module.exports = function(app) {
     .post('/DataForms',DataForm.get)
     .put('/DataForm',DataForm.update)
     .delete('/DataForm/:_id',DataForm.delete)
+    .post('/DataFormr',DataForm.getByetat_or_date)
+    //gestion connexion admin
+    .put('/Administrations',Formulaire.NewMDP)
+    .get('/Administrations/:date_creation/:Email',Formulaire.Forget)
+    .post('/Administrations',Formulaire.Connexion)
+    .get('/Administrations/:date_creation/:Email/:Crypto',Formulaire.Access)
 }

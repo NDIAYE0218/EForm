@@ -8,11 +8,16 @@ import { GererFormulaireComponent } from './compoments/Administration/gerer-form
 import { GererDemandeComponent } from './compoments/Supervision/gerer-demande/gerer-demande.component';
 import { NouvelDemandeComponent } from './compoments/Demandes/nouvel-demande/nouvel-demande.component';
 import { SuivreDemandeComponent } from './compoments/Demandes/suivre-demande/suivre-demande.component';
+import { AuthentificationComponent } from './compoments/Supervision/authentification/authentification.component';
+import { PresentationComponent } from './compoments/presentation/presentation.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatToolbarModule, MatFormFieldModule, MatInputModule, MatExpansionModule, MatProgressBarModule, MatGridListModule, MatOptionModule, MatSelectModule, MatIconModule, MatButtonModule, MatMenuModule, MatCardModule, MatTableModule, MatDividerModule, MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatAutocompleteModule, MatTabsModule } from '@angular/material';
+import { MatToolbarModule, MatFormFieldModule,MatRadioModule, MatInputModule, MatExpansionModule,MatCheckboxModule, MatProgressBarModule, MatGridListModule, MatOptionModule, MatSelectModule, MatIconModule, MatButtonModule, MatMenuModule, MatCardModule, MatTableModule, MatDividerModule, MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatAutocompleteModule, MatTabsModule } from '@angular/material';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CookieService } from "angular2-cookie/services/cookies.service";
 //importation des services
 import {FormulaireService} from './services/formulaire.service'
 import {DataFormulaireService} from './services/data-formulaire.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +25,9 @@ import {DataFormulaireService} from './services/data-formulaire.service';
     GererFormulaireComponent,
     GererDemandeComponent,
     NouvelDemandeComponent,
-    SuivreDemandeComponent
+    SuivreDemandeComponent,
+    AuthentificationComponent,
+    PresentationComponent
   ],
   imports: [
     BrowserModule,
@@ -45,9 +52,13 @@ import {DataFormulaireService} from './services/data-formulaire.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
-    MatTabsModule
+    MatTabsModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    ReactiveFormsModule, 
+    FormsModule
   ],
-  providers: [FormulaireService,DataFormulaireService],
+  providers: [FormulaireService,DataFormulaireService,CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,1 +1,62 @@
-<p>gerer-demande works!</p>
+
+<button mat-button style="text-align: right;color:#f95c63; margin-left: 90%;" (click)="deconnecte()">
+    <mat-icon>exit_to_app</mat-icon> se deconnecter
+</button>
+<div class="recherche">
+    <form [formGroup]="shearchform" class="shearch-form">
+        <mat-form-field style="width: 30%">
+            <input matInput placeholder="Par numero de la demande (comptant 8 carractères)"
+                (input)="shearch_form($event.target.value,0,'',0)" max="8" type="text" required formControlName="Recherche"
+                #Recherche>
+        </mat-form-field>
+        <span class="ou">OU</span>
+        <mat-form-field style="width: 30%;">
+            <mat-select placeholder="Par état de la demande" #etat>
+                <mat-option [value]="0" (click)="shearch_form('',0,'',2)">En attente</mat-option>
+                <mat-option [value]="0" (click)="shearch_form('',1,'',2)">Réfusé</mat-option>
+                <mat-option [value]="0" (click)="shearch_form('',2,'',2)">Accepté (en cour de traitement)</mat-option>
+                <mat-option [value]="0" (click)="shearch_form('',3,'',2)">Accepté (traité)</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span class="ou">OU</span>
+        <mat-form-field style="width: 30%">
+            <input matInput placeholder="Par date" (input)="shearch_form('',0,$event.target.value,3)" max="8"
+                type="date" required #Date>
+        </mat-form-field>
+    </form>
+</div>
+<div>
+    <table mat-table [dataSource]="data_demande" id="customers">
+        <ng-container matColumnDef="numD">
+            <th mat-header-cell *matHeaderCellDef>N° Demande</th>
+            <td mat-cell *matCellDef="let element">{{element.dte_dem}}</td>
+        </ng-container>
+        <ng-container matColumnDef="dte">
+            <th mat-header-cell *matHeaderCellDef>Date de demande</th>
+            <td mat-cell *matCellDef="let element">{{getDate(element.Date_etat[0].date)}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Etat">
+            <th mat-header-cell *matHeaderCellDef>Etat de la demande</th>
+            <td mat-cell *matCellDef="let element">{{getEtat(element.Date_etat[element.Date_etat.length-1].etat)}}</td>
+        </ng-container>
+        <ng-container matColumnDef="act">
+            <th mat-header-cell *matHeaderCellDef class="mat-column-right">Actions</th>
+            <td mat-cell *matCellDef="let element" class="mat-column-right">
+                <button mat-button style="color: red" *ngIf="element.Date_etat[element.Date_etat.length-1].etat==0" (click)="change(element,1)">
+                    <mat-icon>highlight_off</mat-icon>
+                </button>
+                <button mat-button color="primary" *ngIf="element.Date_etat[element.Date_etat.length-1].etat==0" (click)="change(element,2)">
+                    <mat-icon>check_circle_outline</mat-icon>
+                </button>
+                <button mat-button color="primary" *ngIf="element.Date_etat[element.Date_etat.length-1].etat==2" (click)="change(element,3)" routerLink="/Informatique/{{element.date_creation}}">
+                    <mat-icon>check_circle</mat-icon>
+                </button>
+                <button mat-button style="color: green" (click)="Pdf_downoald(element.data,element.dte_dem)">
+                    <mat-icon>cloud_download</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="ColumnsInformation"></tr>
+        <tr mat-row *matRowDef="let row; columns: ColumnsInformation;"></tr>
+    </table>
+</div>

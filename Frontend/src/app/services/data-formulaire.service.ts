@@ -9,6 +9,9 @@ export class DataFormulaireService {
   Recherche(recherche){
     return this.http.post(`${this.uri}/DataForms`,recherche)
   }
+  Recherche_spec(recherche){
+    return this.http.post(`${this.uri}/DataFormr`,recherche)
+  }
   Ajouter(formulaire){
     return this.http.post(`${this.uri}/DataForm`,formulaire)
   }
