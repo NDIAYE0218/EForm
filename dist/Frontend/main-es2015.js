@@ -376,7 +376,7 @@ let CreerFormulaireComponent = class CreerFormulaireComponent {
         this.FormData = [];
         this.Emailvalidation = [];
         this.formulaire = { titre: "", Emailvalidation: "", boutton: { Nom: "Valider", Couleur: "#4a488d" }, donne: [], date_creation: "" };
-        this.Link = "http://demandeinfo.mairie-clichy.fr:4200/#/";
+        this.Link = "http://demandeinfo.mairie-clichy.fr/#/";
         this.uri = "";
         this.action = true;
         this.AjoutForm = this.fb.group({
@@ -564,7 +564,7 @@ let GererFormulaireComponent = class GererFormulaireComponent {
     constructor(serviceformulaire) {
         this.serviceformulaire = serviceformulaire;
         this.Donnee = [];
-        this.Link = "http://demandeinfo.mairie-clichy.fr:4200/#/";
+        this.Link = "http://demandeinfo.mairie-clichy.fr/#/";
         this.ColumnsInformation = ['Titre', 'Administrateur', 'liena', 'lienp', 'lienSui', 'act'];
     }
     ngOnInit() { this.findData(); }
