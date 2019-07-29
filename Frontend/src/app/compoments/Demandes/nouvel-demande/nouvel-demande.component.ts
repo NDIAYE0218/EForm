@@ -19,7 +19,7 @@ export class NouvelDemandeComponent implements OnInit {
   nom_tmp = []
   formulaire = { titre: "", Emailvalidation: "", boutton: { Nom: "Valider", Couleur: "#4a488d" }, donne: [], date_creation: "" }
   code_demande=""
-  Link="http://demandeinfo.mairie-clichy.fr:4200/"
+  Link="http://demandeinfo.mairie-clichy.fr:4200/#/"
   titre=""
   constructor(private serviceformulaire: FormulaireService, private dataserviceform:DataFormulaireService, private params: ActivatedRoute, private router: Router) { }
 

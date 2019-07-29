@@ -383,7 +383,7 @@ var CreerFormulaireComponent = /** @class */ (function () {
         this.FormData = [];
         this.Emailvalidation = [];
         this.formulaire = { titre: "", Emailvalidation: "", boutton: { Nom: "Valider", Couleur: "#4a488d" }, donne: [], date_creation: "" };
-        this.Link = "http://demandeinfo.mairie-clichy.fr:4200/";
+        this.Link = "http://demandeinfo.mairie-clichy.fr:4200/#/";
         this.uri = "";
         this.action = true;
         this.AjoutForm = this.fb.group({
@@ -575,7 +575,7 @@ var GererFormulaireComponent = /** @class */ (function () {
     function GererFormulaireComponent(serviceformulaire) {
         this.serviceformulaire = serviceformulaire;
         this.Donnee = [];
-        this.Link = "http://demandeinfo.mairie-clichy.fr:4200/";
+        this.Link = "http://demandeinfo.mairie-clichy.fr:4200/#/";
         this.ColumnsInformation = ['Titre', 'Administrateur', 'liena', 'lienp', 'lienSui', 'act'];
     }
     GererFormulaireComponent.prototype.ngOnInit = function () { this.findData(); };
@@ -681,7 +681,7 @@ var NouvelDemandeComponent = /** @class */ (function () {
         this.nom_tmp = [];
         this.formulaire = { titre: "", Emailvalidation: "", boutton: { Nom: "Valider", Couleur: "#4a488d" }, donne: [], date_creation: "" };
         this.code_demande = "";
-        this.Link = "http://demandeinfo.mairie-clichy.fr:4200/";
+        this.Link = "http://demandeinfo.mairie-clichy.fr:4200/#/";
         this.titre = "";
     }
     NouvelDemandeComponent.prototype.ngOnInit = function () { this.initialisation(); };
