@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule, MatFormFieldModule,MatRadioModule, MatInputModule, MatExpansionModule,MatCheckboxModule, MatProgressBarModule, MatGridListModule, MatOptionModule, MatSelectModule, MatIconModule, MatButtonModule, MatMenuModule, MatCardModule, MatTableModule, MatDividerModule, MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS, MatAutocompleteModule, MatTabsModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CookieService } from "angular2-cookie/services/cookies.service";
+import {ɵROUTER_PROVIDERS} from '@angular/router';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 //importation des services
 import {FormulaireService} from './services/formulaire.service'
 import {DataFormulaireService} from './services/data-formulaire.service';
@@ -58,7 +60,7 @@ import {DataFormulaireService} from './services/data-formulaire.service';
     ReactiveFormsModule, 
     FormsModule
   ],
-  providers: [FormulaireService,DataFormulaireService,CookieService],
+  providers: [ɵROUTER_PROVIDERS,{provide: LocationStrategy, useClass: HashLocationStrategy},FormulaireService,DataFormulaireService,CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

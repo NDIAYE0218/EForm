@@ -24,7 +24,7 @@ export class CreerFormulaireComponent implements OnInit {
   FormData = []
   Emailvalidation = []
   formulaire = { titre: "", Emailvalidation: "", boutton: { Nom: "Valider", Couleur: "#4a488d" }, donne: [], date_creation: "" }
-  Link = "http://localhost:4200/"
+  Link = "http://demandeinfo.mairie-clichy.fr:4200/"
   uri = ""
   action = true
   constructor(private fb: FormBuilder, private serviceformulaire: FormulaireService, private params: ActivatedRoute, private router: Router) {

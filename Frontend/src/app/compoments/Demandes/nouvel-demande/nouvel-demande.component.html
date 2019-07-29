@@ -41,9 +41,9 @@
                 <h5>{{data_frm.nomChamp}}</h5>
                 <mat-radio-group [required]="data_frm.oblig">
                     <span *ngFor="let list of data_frm.list; let j=index">
-                        <mat-radio-button [value]="list" *ngIf="list==data_frm.defaut" (input)="save_Value(data_frm.type,data_frm.nomChamp,list)" checked>{{list}}
+                        <mat-radio-button [value]="list" *ngIf="list==data_frm.defaut" (input)="save_Value(data_frm.type,data_frm.nomChamp,list,'')" checked>{{list}}
                         </mat-radio-button>
-                        <mat-radio-button [value]="list" *ngIf="list!=data_frm.defaut" (input)="save_Value(data_frm.type,data_frm.nomChamp,list)">{{list}}</mat-radio-button>
+                        <mat-radio-button [value]="list" *ngIf="list!=data_frm.defaut" (input)="save_Value(data_frm.type,data_frm.nomChamp,list,'')">{{list}}</mat-radio-button>
                         &nbsp;&nbsp;
                     </span>
                 </mat-radio-group>
@@ -70,7 +70,7 @@
         <table style="width: 100%">
             <tr>
                 <td style="width: 10%">Lien public</td>
-                <td style="width: 60%"><a [href]="Link+'Suivre/'+date_creation/code_demande">{{Link+"Suivre/"+date_creation.substring(0, 10)}}...</a>
+                <td style="width: 60%"><a href="{{Link}}+'Suivre/'+{{date_creation}}/code_demande">{{Link+"Suivre/"+date_creation.substring(0, 10)}}...</a>
                     <input type="text" [value]="Link+'Suivre/'+date_creation+'/'+code_demande" style="width: 0%;background-color: #4a488d"
                         #lien_partag></td>
                 <td style="width: 26%">

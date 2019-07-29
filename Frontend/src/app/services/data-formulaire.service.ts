@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DataFormulaireService {
-  uri = 'http://localhost:4000';
+  uri = 'http://demandeinfo.mairie-clichy.fr:4000';
   constructor(private http: HttpClient) { }
   Recherche(recherche){
     return this.http.post(`${this.uri}/DataForms`,recherche)

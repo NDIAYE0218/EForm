@@ -6,7 +6,7 @@ import { Router} from '@angular/router';
   providedIn: 'root'
 })
 export class FormulaireService {
-  uri = 'http://localhost:4000';
+  uri = 'http://demandeinfo.mairie-clichy.fr:4000';
   constructor(private http: HttpClient,private cookieservice: CookieService, private router: Router) { }
   Recherche(recherche){
     return this.http.post(`${this.uri}/Formulaires`,recherche)

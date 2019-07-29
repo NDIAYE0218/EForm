@@ -78,8 +78,8 @@ function generationString(length) {
     return result;
 }
 function sender_message_nouvel_demande(data, dte_creation, dte_demande) {
-    var link = "http://localhost:4200/Suivre/" + dte_creation + "/" + dte_demande
-    var link2 = "http://localhost:4200/Suivis/" + dte_creation + "/" + dte_demande
+    var link = "http://demandeinfo.mairie-clichy.fr/Suivre/" + dte_creation + "/" + dte_demande
+    var link2 = "http://demandeinfo.mairie-clichy.fr/Suivis/" + dte_creation + "/" + dte_demande
     Formulaires.findOne({ date_creation: dte_creation }, function (err, Formulaire) {
         var message2 = "<span style:\"font-size: 120%\">Une nouvelle demande concernat <i><b>\"" + Formulaire.titre + "\" viens d'être effectué, trouver tous les détail concernant celle-ci en cliquant <a href=\"" + link2 + "\">ici</a>.<br>Cette demande est en attente de validation.</span>"
         sendmail("Nouvelle demande" + Formulaire.titre, Formulaire.Emailvalidation, message2)
@@ -111,7 +111,7 @@ function findspec(data_form,data){
    return ret
 }
 function verifEmailAndSend(date_creation,dte_dem,data){
-    var link = "http://localhost:4200/Suivre/" + date_creation + "/" + dte_dem
+    var link = "http://demandeinfo.mairie-clichy.fr/Suivre/" + date_creation + "/" + dte_dem
     var message="<span style:\" font-size:120%\">Bonjour,<br>Votre demande <b><i>"+dte_dem+"</i></b> viens de subir une modification vous pouvez la consulter en suivant ce <a href=\""+link+"\">lien</a>.</span>"
     for(var i=0;i<data.length;i++){
         if(data[i].valeur.includes('@') && data[i].valeur.includes('.') && data[i].valeur.length>5)

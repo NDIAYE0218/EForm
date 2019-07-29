@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 })
 export class GererFormulaireComponent implements OnInit {
   Donnee=[]
-  Link="http://localhost:4200/"
+  Link="http://demandeinfo.mairie-clichy.fr:4200/"
   ColumnsInformation = ['Titre', 'Administrateur', 'liena','lienp','lienSui', 'act']
   constructor(private serviceformulaire:FormulaireService) { }
 
