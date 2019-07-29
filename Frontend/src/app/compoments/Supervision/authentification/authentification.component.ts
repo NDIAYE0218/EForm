@@ -30,9 +30,10 @@ export class AuthentificationComponent implements OnInit {
   ngOnInit() { this.initialise() }
   initialise() {
     this.date_creation = this.params.snapshot.paramMap.get('date_creation')
-    this.serviceformulaire.Access(this.date_creation,"")
     this.crypto = this.params.snapshot.paramMap.get('crypto')
     this.vue_con = (this.crypto == null) ? true : false
+    if(this.crypto == null)
+    this.serviceformulaire.Access(this.date_creation,"")
   }
   NouveauMDP(Email, MDP) {
     var data = { date_creation: this.date_creation, Crypto: this.crypto, Email: Email.toLowerCase(), MDP }

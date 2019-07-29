@@ -681,7 +681,7 @@ var NouvelDemandeComponent = /** @class */ (function () {
         this.nom_tmp = [];
         this.formulaire = { titre: "", Emailvalidation: "", boutton: { Nom: "Valider", Couleur: "#4a488d" }, donne: [], date_creation: "" };
         this.code_demande = "";
-        this.Link = "http://demandeinfo.mairie-clichy.fr:4200/#/";
+        this.Link = "http://demandeinfo.mairie-clichy.fr/#/";
         this.titre = "";
     }
     NouvelDemandeComponent.prototype.ngOnInit = function () { this.initialisation(); };
@@ -1127,9 +1127,10 @@ var AuthentificationComponent = /** @class */ (function () {
     AuthentificationComponent.prototype.ngOnInit = function () { this.initialise(); };
     AuthentificationComponent.prototype.initialise = function () {
         this.date_creation = this.params.snapshot.paramMap.get('date_creation');
-        this.serviceformulaire.Access(this.date_creation, "");
         this.crypto = this.params.snapshot.paramMap.get('crypto');
         this.vue_con = (this.crypto == null) ? true : false;
+        if (this.crypto == null)
+            this.serviceformulaire.Access(this.date_creation, "");
     };
     AuthentificationComponent.prototype.NouveauMDP = function (Email, MDP) {
         var _this = this;
